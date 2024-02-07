@@ -59,7 +59,7 @@ argparser.add_argument("--vllm_port", type=int, default=None, help="vllm port")
 
 args = argparser.parse_args()
 
-
+# TODO: Walk through code using debugger to undertand how things work and why the code base is so large, considering that it is using langchain for all the heavy lifting
 if args.logging:
     enable_logging(True)
 else:
