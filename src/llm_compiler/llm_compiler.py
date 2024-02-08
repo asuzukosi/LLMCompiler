@@ -89,7 +89,7 @@ class LLMCompiler(Chain, extra="allow"):
             log(
                 "Replan example prompt not specified, using the same prompt as the planner."
             )
-            planner_example_prompt_replan = planner_example_prompt
+            planner_example_prompt_replan = planner_example_prompt # when replanner prompt is not available uses the same prompt as planner prompt
 
         self.planner = Planner(
             llm=planner_llm,
@@ -311,3 +311,39 @@ class LLMCompiler(Chain, extra="allow"):
             log("Reached max replan limit.")
 
         return {self.output_key: answer}
+
+
+
+def test1():
+    print("Done with test1")
+    
+def test2():
+    print("Done with test2")
+    
+def test3():
+    print("Done with test3")
+    
+def my_planner():
+    return {
+        "1": {
+            "name": "test1",
+            "func": test1,
+            "dependencies": []
+        },
+         "2": {
+            "name": "test2",
+            "func": test2,
+            "dependencies": []
+        },
+        "3": {
+            "name": "test3",
+            "func": test1,
+            "dependencies": [1, 2]
+        }
+    }
+
+
+def my_task_fetching(tasks):
+    remaining_tasks = set([ int(key) for key in tasks.keys()])
+    tasks_done = { int(key): asyncio.Event() for key in tasks.keys()}
+    tasks = tasks

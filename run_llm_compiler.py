@@ -5,6 +5,7 @@ import os
 import shutil
 
 import numpy as np
+from dotenv import load_dotenv
 
 from configs.hotpotqa.configs import CONFIGS as HOTPOTQA_CONFIGS
 from configs.hotpotqa.tools import tools as hotpotqa_tools
@@ -27,6 +28,9 @@ from src.react.base import initialize_react_agent_executor
 from src.utils.evaluation_utils import arun_and_time, compare_answer, normalize_answer
 from src.utils.logger_utils import enable_logging, flush_results
 from src.utils.model_utils import get_model
+
+
+load_dotenv()
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument("--N", type=int, default=None, help="number of samples")

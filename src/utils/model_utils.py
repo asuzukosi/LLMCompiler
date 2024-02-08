@@ -11,14 +11,17 @@ def get_model(
     temperature=0,
 ):
     if model_type == "openai":
-        if api_key is None:
-            raise ValueError("api_key must be provided for openai model")
+        # if api_key is None:
+        #     raise ValueError("api_key must be provided for openai model")
         llm = ChatOpenAI(
-            model_name=model_name,  # type: ignore
-            openai_api_key=api_key,  # type: ignore
+            # model_name=model_name,  # type: ignore
+            # openai_api_key=api_key,# type: ignore
+            model="mistralai/Mistral-7B-Instruct-v0.2",
             streaming=stream,
             temperature=temperature,
         )
+        print(llm._default_params)
+        
 
     elif model_type == "vllm":
         if vllm_port is None:
