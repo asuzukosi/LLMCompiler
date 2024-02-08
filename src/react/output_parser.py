@@ -9,7 +9,8 @@ from src.agents.agent import AgentOutputParser
 class ReActOutputParser(AgentOutputParser):
     """Output parser for the ReAct agent."""
 
-    def parse(self, text: str) -> Union[AgentAction, AgentFinish]:
+    def parse(self, text: str) -> Union[AgentAction, AgentFinish]: # each step in the react output is going to be either an agent action or agent finish, so where
+        # do the observations come from
         action_prefix = "Action: "
         if not text.strip().split("\n")[-1].startswith(action_prefix):
             raise OutputParserException(f"Could not parse LLM Output: {text}")

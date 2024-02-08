@@ -278,3 +278,17 @@ class Planner:
         if callbacks:
             all_callbacks.extend(callbacks)
         await self.run_llm(inputs=inputs, is_replan=is_replan, callbacks=all_callbacks)
+
+class Planner2:
+    def __init__(self,
+                 llm: BaseChatModel,
+                 example_prompt: str, # examples prompt used for planning
+                 example_prompt_replan: str, # examples prompt used for replanning
+                 tools: Sequence[Union[Tool, StructuredTool]],
+                 stop: Optional[list[str]],
+                 ):
+        self.llm = llm
+        self.example_prompt = example_prompt
+        self.example_prompt_replan = example_prompt_replan
+        self.output_parser = LLMCompilerPlanParser(tools=tools)
+        self.stop = stop

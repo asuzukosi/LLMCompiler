@@ -194,7 +194,11 @@ s
 
     def lookup_tool(self, name: str) -> BaseTool:
         """Lookup tool by name."""
-        return {tool.name: tool for tool in self.tools}[name]
+        for tool in self.tools:
+            if tool.name == name:
+                return tool
+        return None
+        # return {tool.name: tool for tool in self.tools}[name]
 
     def _should_continue(self, iterations: int, time_elapsed: float) -> bool:
         if self.max_iterations is not None and iterations >= self.max_iterations:
@@ -571,3 +575,15 @@ s
             return self.trim_intermediate_steps(intermediate_steps)
         else:
             return intermediate_steps
+
+
+
+class MyAgentExecutor(Chain):
+    def __init__(
+        agent: Union[BaseSingleActionAgent, BaseMultiActionAgent], # whats the difference between a single action agent and a multi action agent?
+        tools: Sequence[BaseTool],
+        show_intermediate_steps: bool = True,
+        max_iterations: int = 15, 
+        max_execution_time: Optional[float] = None
+    ):
+        pass
